@@ -1,10 +1,11 @@
 <script setup>
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 
-defineProps({
+const props = defineProps({
     searchResults: Array,
 })
 
+const numberOfResults = computed(() => props.searchResults.length);
 </script>
 
 <template>

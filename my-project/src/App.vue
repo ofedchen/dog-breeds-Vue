@@ -1,9 +1,10 @@
 <script setup>
+import axios from 'axios'
+import { ref, onMounted, watch, computed, onBeforeMount } from 'vue'
+
 import NavBar from './components/NavBar.vue';
 import BreedCard from './components/BreedCard.vue';
 import SearchResults from './components/SearchResults.vue';
-
-import { ref, onMounted, watch } from 'vue'
 
 import filterIcon from '../assets/adjustment_11798090.png'
 
@@ -13,14 +14,47 @@ const searching = ref(false)
 let favoritesList = ref([])
 let popularBreeds = ref([])
 
-onMounted( () => {
-// function to add a breed to popular section
-if (localStorage.getItem("fav") && localStorage.getItem("fav") !== null) {
+f()
+
+async function f() {
+  try {
+    // const response = await fetch('https://registry.dog/api/v1')
+    // const data = await response.json()
+    const response = await axios.get('https://registry.dog/api/v1')
+    breedData.value = response.data.data
+    console.log(breedData.value, "fetch")
+
+    toPopular();
+  }
+  catch (error) {
+    console.log('Error fetching breeds')
+  }
+}
+
+
+onMounted(() => {
+  // function to sync favorites with the local storage
+  if (localStorage.getItem("fav") && localStorage.getItem("fav") !== null) {
     favoritesList.value = JSON.parse(localStorage.getItem("fav"))
     console.log(favoritesList.value)
+  }
+});
+
+
+// function to add a breed to Popular section
+function toPopular() {
+  console.log(breedData.value, "before fav")
+  for (let breed of breedData.value) {
+    if (breed.general.popularity > 4) {
+      let add = Math.floor(Math.random() * 7)
+      if (add > 4) {
+        popularBreeds.value.push(breed)
+      }
+    }
+  }
+  console.log(popularBreeds.value, "popular")
 }
-// function to sync favorites with the local storage
-})
+
 
 //checking if in favorites
 function checkFavorites(breedId) {
@@ -33,8 +67,8 @@ function checkFavorites(breedId) {
 }
 
 watch(favoritesList, (newVal) => {
-  localStorage.setItem('fav',JSON.stringify(newVal))
-},{deep:true})
+  localStorage.setItem('fav', JSON.stringify(newVal))
+}, { deep: true })
 
 //adding or removing from favorites list
 function addToFavorites(id) {
@@ -44,20 +78,9 @@ function addToFavorites(id) {
   else {
     favoritesList.value.push(id)
   }
- // localStorage.setItem("fav", JSON.stringify(favoritesList.value))
+  // localStorage.setItem("fav", JSON.stringify(favoritesList.value))
 }
 
-
-onMounted(async () => {
-  try {
-    const response = await fetch('https://registry.dog/api/v1')
-    const data = await response.json()
-    breedData.value = data.data
-  }
-  catch (error) {
-    console.log('Error fetching breeds')
-  }
-})
 
 
 </script>
@@ -66,17 +89,18 @@ onMounted(async () => {
   <h1>Discover the perfect dog breed for you</h1>
   <NavBar :filterIcon="filterIcon" />
   <SearchResults v-if="searching">
-    <BreedCard v-for="breed in searchResults" :breed="breed">
+    <BreedCard v-for="breed in searchResults" :breed="breed" :key="breed.id">
     </BreedCard>
   </SearchResults>
+  <h2 id="popular-heading">Popular</h2>
   <section id="popular">
-    <h2 id="popular-heading">Popular</h2>
-    <BreedCard v-for="breed in popularBreeds" :breed="breed">
+    <BreedCard v-for="breed in popularBreeds" :breed="breed" :key="breed.id">
+      <img class="favorite" :src="checkFavorites(breed.id)" @click="addToFavorites(breed.id)">
     </BreedCard>
   </section>
+  <h2>All breeds</h2>
   <section>
-    <h2>All breeds</h2>
-    <BreedCard v-for="breed in breedData" :breed="breed">
+    <BreedCard v-for="breed in breedData" :breed="breed" :key="breed.id">
       <img class="favorite" :src="checkFavorites(breed.id)" @click="addToFavorites(breed.id)">
     </BreedCard>
   </section>
