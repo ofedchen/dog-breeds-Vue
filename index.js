@@ -1,50 +1,50 @@
-const app = Vue.createApp({})
+// const app = Vue.createApp({})
 
-app.component('breed-card', {
-    created() {
-        this.displayBreeds()
-    },
-    data() {
-        return {
-            breeds: null,
-            iconFav: {
-                // default: "https://img.icons8.com/?size=100&id=85138&format=png&color=000000",
-                // added: "https://img.icons8.com/?size=100&id=85038&format=png&color=000000"
-            }
-        }
-    },
-    methods: {
-        displayBreeds() {
-            fetch('https://registry.dog/api/v1')
-                .then(response => response.json())
-                .then(result => {
-                    this.breeds = result.data
-                })
-        }
-    },
-    template: `
-    <div id="breed.id" v-for="breed in breeds">
-        <img :src="breed.images.small.studio" :alt="breed.general.name">
-        <h3>{{ breed.general.name }}</h3>
-        <h4>{{ breed.general.group }}</h4>
-        <img class="favorite" :src="iconFav">
-    </div>
-    `
-})
+// app.component('breed-card', {
+//     created() {
+//         this.displayBreeds()
+//     },
+//     data() {
+//         return {
+//             breeds: null,
+//             iconFav: {
+//                 // default: "https://img.icons8.com/?size=100&id=85138&format=png&color=000000",
+//                 // added: "https://img.icons8.com/?size=100&id=85038&format=png&color=000000"
+//             }
+//         }
+//     },
+//     methods: {
+//         displayBreeds() {
+//             fetch('https://registry.dog/api/v1')
+//                 .then(response => response.json())
+//                 .then(result => {
+//                     this.breeds = result.data
+//                 })
+//         }
+//     },
+//     template: `
+//     <div id="breed.id" v-for="breed in breeds">
+//         <img :src="breed.images.small.studio" :alt="breed.general.name">
+//         <h3>{{ breed.general.name }}</h3>
+//         <h4>{{ breed.general.group }}</h4>
+//         <img class="favorite" :src="iconFav">
+//     </div>
+//     `
+// })
 
-app.mount('#app')
-
-
+// app.mount('#app')
 
 
-let favoritesList = []
 
-//Restore favorites from local storage
 
-if (localStorage.getItem("fav") && localStorage.getItem("fav") !== null) {
-    favoritesList = JSON.parse(localStorage.getItem("fav"))
-    console.log(favoritesList)
-}
+// let favoritesList = []
+
+// //Restore favorites from local storage
+
+// if (localStorage.getItem("fav") && localStorage.getItem("fav") !== null) {
+//     favoritesList = JSON.parse(localStorage.getItem("fav"))
+//     console.log(favoritesList)
+// }
 
 /*
 

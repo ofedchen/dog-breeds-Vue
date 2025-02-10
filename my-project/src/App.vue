@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios'
-import { ref, onMounted, watch, computed, onBeforeMount } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 
 import NavBar from './components/NavBar.vue';
 import BreedCard from './components/BreedCard.vue';
@@ -8,11 +8,13 @@ import SearchResults from './components/SearchResults.vue';
 
 import filterIcon from '../assets/adjustment_11798090.png'
 
-let breedData = ref([])
-let searchResults = ref([])
+const breedData = ref([])
+const favoritesList = ref([])
+const popularBreeds = ref([])
+const showFilters = ref(false)
+// const searchResults = ref([])
 const searching = ref(false)
-let favoritesList = ref([])
-let popularBreeds = ref([])
+const searchTerm = ref('')
 
 f()
 
@@ -78,19 +80,73 @@ function addToFavorites(id) {
   else {
     favoritesList.value.push(id)
   }
-  // localStorage.setItem("fav", JSON.stringify(favoritesList.value))
 }
 
+const searchResults = computed ({
+  get() {
+  if (searchTerm.value.length >= 2) {
+      return breedData.value.filter(breed => breed.general.name.toLowerCase().includes(searchTerm.value))
+    }
+  }
+})
+
+function filterSearch(search) {
+  searchTerm.value = search.value
+  searching.value = true
+  console.log('got filtered ', searchTerm.value)
+  // for (let breed of breedData.value) {
+  //       if (name.value.length >= 2) {
+  //           if (!breed.general.name.toLowerCase().includes(name.value)) {
+  //             searchResults.value.push(breed)
+  //               continue
+  //           }
+  //       }
+
+        // if (document.getElementById("filter-size").value) {
+        //     if (Number(document.getElementById("filter-size").value) !== breed.physical.size) {
+        //         continue
+        //     }
+        // }
+
+        // if (document.getElementById("filter-group").value) {
+        //     if (document.getElementById("filter-group").value !== breed.general.group) {
+        //         continue
+        //     }
+        // }
+
+        // if (document.getElementById("filter-child").value) {
+        //     if (Number(document.getElementById("filter-child").value) !== breed.behavior.childFriendly) {
+        //         continue
+        //     }
+        // }
+
+        // if (document.getElementById("filter-exercise").value) {
+        //     if (Number(document.getElementById("filter-exercise").value) !== breed.care.exerciseNeeds) {
+        //         continue
+        //     }
+        // }
+    // }
+}
+
+function toggleFilters() {
+  showFilters.value = !showFilters.value
+}
+
+function clearFilters() {
+  searching.value = false
+  searchTerm.value = ''
+  showFilters.value = false
+}
 
 
 </script>
 
 <template>
   <h1>Discover the perfect dog breed for you</h1>
-  <NavBar :filterIcon="filterIcon" />
-  <SearchResults v-if="searching">
-    <BreedCard v-for="breed in searchResults" :breed="breed" :key="breed.id">
-    </BreedCard>
+  <NavBar @search="filterSearch" @toggleFilters="toggleFilters" @clearSearch="clearFilters" :filterIcon="filterIcon" :filters="showFilters" :searching="searching" :searchText="searchTerm"/>
+  <SearchResults v-if="searching" :searchResults="searchResults">
+    <!-- <BreedCard v-for="breed in searchResults" :breed="breed" :key="breed.id">
+    </BreedCard> -->
   </SearchResults>
   <h2 id="popular-heading">Popular</h2>
   <section id="popular">
@@ -148,7 +204,6 @@ input {
 }
 
 #remove-filters {
-  display: none;
   font-weight: 500;
   font-size: 1em;
   cursor: pointer;
@@ -167,7 +222,6 @@ input {
 
 #filters {
   width: 100%;
-  display: none;
   justify-content: flex-start;
   gap: 15px;
   align-items: center;

@@ -1,19 +1,35 @@
 <script setup>
 
-import { defineProps } from 'vue';
+import { defineProps, defineEmits } from 'vue';
+
 
 defineProps({
-    filterIcon: String
+    filterIcon: String,
+    breeds: Array,
+    filters: Boolean,
+    searching: Boolean,
+    searchText: String
 })
+
+const emit = defineEmits(['search', 'toggleFilters', 'clearSearch'])
+const search = (e) => {
+    emit('search', e.target)
+}
+const clearSearch = () => {
+    emit('clearSearch')
+}
+const toggleFilters = () => {
+    emit('toggleFilters')
+}
 
 </script>
 
 <template>
         <div class="search">
-            <input type="text" placeholder="Search by breed name" id="searchfield" value="">
-            <img class="icon" :src="filterIcon" alt="filters">
-            <h5 id="remove-filters">⨯ Clear filters/search</h5>
-            <div id="filter-container">
+            <input type="text" placeholder="Search by breed name" id="searchfield" :value="searchText" @keyup.enter="search">
+            <img @click="toggleFilters" class="icon" :src="filterIcon" alt="filters">
+            <h5 @click="clearSearch" id="remove-filters" v-show="searching">⨯ Clear filters/search</h5>
+            <div id="filter-container" v-show="filters">
                 <div id="filters">
                     <label for="filter-group">Group</label>
                     <select name="group" id="filter-group">
@@ -56,10 +72,11 @@ defineProps({
                         <option value="4">up to 2 hours</option>
                         <option value="5">2+ hours</option>
                     </select>
-                    <button>Search</button>
+                    <button @click="search">Search</button>
                 </div>
             </div>
-            <ul id="sizes">
+            <!-- Vue router -->
+            <ul id="sizes"> 
                 <li id="1">X-Small</li>
                 <li id="2">Small</li>
                 <li id="3">Medium</li>
