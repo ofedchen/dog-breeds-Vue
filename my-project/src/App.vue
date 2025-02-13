@@ -145,8 +145,6 @@ function clearFilters() {
   <h1>Discover the perfect dog breed for you</h1>
   <NavBar @search="filterSearch" @toggleFilters="toggleFilters" @clearSearch="clearFilters" :filterIcon="filterIcon" :filters="showFilters" :searching="searching" :searchText="searchTerm"/>
   <SearchResults v-if="searching" :searchResults="searchResults">
-    <!-- <BreedCard v-for="breed in searchResults" :breed="breed" :key="breed.id">
-    </BreedCard> -->
   </SearchResults>
   <h2 id="popular-heading">Popular</h2>
   <section id="popular">
