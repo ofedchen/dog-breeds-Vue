@@ -96,21 +96,6 @@ button {
   align-self: flex-start;
 }
 
-#sizes {
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  grid-column: span 3;
-  align-items: center;
-  margin-inline: auto;
-}
-
-li {
-  list-style: none;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 #search-container {
   width: 100%;
   margin-top: 1em;

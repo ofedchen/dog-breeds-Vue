@@ -85,20 +85,30 @@ function addToFavorites(id) {
   }
 }
 
+//Search and filtering function returns a searchResults array
 const searchResults = computed (() => {
   console.log(searchTerm.value, sizeFilter.value)
-  if (searchTerm.value && searchTerm.value.length >= 2) {
-      return breedData.value.filter(breed => breed.general.name.toLowerCase().includes(searchTerm.value))
+  let result = breedData.value
+  if (searchTerm.value && searchTerm.value.length >= 1) {
+      result = result.filter(breed => breed.general.name.toLowerCase().includes(searchTerm.value))
     }
   if (sizeFilter.value) {
-    return breedData.value.filter(breed => breed.physical.size === sizeFilter.value)
+    result = result.filter(breed => breed.physical.size === sizeFilter.value)
   }
 
-  if (childFilterFilter.value) {
-    return breedData.value.filter(breed => breed.behavior.childFriendly === childFilter.value)
+  if (childFilter.value) {
+    result = result.filter(breed => breed.behavior.childFriendly === childFilter.value)
   }
 
-    return breedData.value
+  if (groupFilter.value) {
+    result = result.filter(breed => breed.general.group === groupFilter.value)
+  }
+
+  if(exerciseFilter.value) {
+    result = result.filter(breed => breed.care.exerciseNeeds === exerciseFilter.value)
+  }
+
+    return result
   }
 
 )
@@ -111,38 +121,6 @@ function filterSearch(search) {
   exerciseFilter.value = Number(search.exercise)
   searching.value = true
   console.log('got filtered ', searchTerm.value)
-  // for (let breed of breedData.value) {
-  //       if (name.value.length >= 2) {
-  //           if (!breed.general.name.toLowerCase().includes(name.value)) {
-  //             searchResults.value.push(breed)
-  //               continue
-  //           }
-  //       }
-
-        // if (document.getElementById("filter-size").value) {
-        //     if (Number(document.getElementById("filter-size").value) !== breed.physical.size) {
-        //         continue
-        //     }
-        // }
-
-        // if (document.getElementById("filter-group").value) {
-        //     if (document.getElementById("filter-group").value !== breed.general.group) {
-        //         continue
-        //     }
-        // }
-
-        // if (document.getElementById("filter-child").value) {
-        //     if (Number(document.getElementById("filter-child").value) !== breed.behavior.childFriendly) {
-        //         continue
-        //     }
-        // }
-
-        // if (document.getElementById("filter-exercise").value) {
-        //     if (Number(document.getElementById("filter-exercise").value) !== breed.care.exerciseNeeds) {
-        //         continue
-        //     }
-        // }
-    // }
 }
 
 function toggleFilters() {
@@ -151,10 +129,8 @@ function toggleFilters() {
 
 function clearFilters() {
   searching.value = false
-  // searchTerm.value = ''
   showFilters.value = false
 }
-
 
 </script>
 
