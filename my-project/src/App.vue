@@ -15,13 +15,15 @@ const showFilters = ref(false)
 // const searchResults = ref([])
 const searching = ref(false)
 const searchTerm = ref('')
+const groupFilter = ref('')
+const sizeFilter = ref('')
+const childFilter = ref('')
+const exerciseFilter = ref('')
 
 f()
 
 async function f() {
   try {
-    // const response = await fetch('https://registry.dog/api/v1')
-    // const data = await response.json()
     const response = await axios.get('https://registry.dog/api/v1')
     breedData.value = response.data.data
     console.log(breedData.value, "fetch")
@@ -82,16 +84,30 @@ function addToFavorites(id) {
   }
 }
 
-const searchResults = computed ({
-  get() {
-  if (searchTerm.value.length >= 2) {
+const searchResults = computed (() => {
+  console.log(searchTerm.value, sizeFilter.value)
+  if (searchTerm.value && searchTerm.value.length >= 2) {
       return breedData.value.filter(breed => breed.general.name.toLowerCase().includes(searchTerm.value))
     }
+  if (sizeFilter.value) {
+    return breedData.value.filter(breed => breed.physical.size === sizeFilter.value)
   }
-})
+
+  if (childFilterFilter.value) {
+    return breedData.value.filter(breed => breed.behavior.childFriendly === childFilter.value)
+  }
+
+    return breedData.value
+  }
+
+)
 
 function filterSearch(search) {
-  searchTerm.value = search.value
+  searchTerm.value = search.text
+  sizeFilter.value = Number(search.size)
+  groupFilter.value = search.group
+  childFilter.value = Number(search.child)
+  exerciseFilter.value = Number(search.exercise)
   searching.value = true
   console.log('got filtered ', searchTerm.value)
   // for (let breed of breedData.value) {
@@ -134,7 +150,7 @@ function toggleFilters() {
 
 function clearFilters() {
   searching.value = false
-  searchTerm.value = ''
+  // searchTerm.value = ''
   showFilters.value = false
 }
 
