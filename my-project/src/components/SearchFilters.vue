@@ -8,7 +8,7 @@ defineProps({
     breeds: Array,
     filters: Boolean,
     searching: Boolean,
-    searchText: String
+    // searchText: String
 })
 
 const searchObj = ref({})
@@ -80,13 +80,5 @@ const toggleFilters = () => {
                     <button @click="search">Search</button>
                 </div>
             </div>
-            <!-- Vue router -->
-            <ul id="sizes"> 
-                <li id="1">X-Small</li>
-                <li id="2">Small</li>
-                <li id="3">Medium</li>
-                <li id="4">Large</li>
-                <li id="5">X-Large</li>
-            </ul>
         </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import BreedCard from '@/components/BreedCard.vue'
+import BreedCard from '../components/BreedCard.vue'
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 

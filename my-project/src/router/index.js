@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory} from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
-import BySizeView from '@/views/BySizeView.vue'
-import NotFoundView from '@/views/NotFoundView.vue'
+import HomeView from '../views/HomeView.vue'
+import BySizeView from '../views/BySizeView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
+
 
 const router = createRouter( {
     history: createWebHashHistory(import.meta.env.BASE_URL),
