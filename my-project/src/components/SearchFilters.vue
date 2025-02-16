@@ -8,7 +8,6 @@ defineProps({
     breeds: Array,
     filters: Boolean,
     searching: Boolean,
-    // searchText: String
 })
 
 const searchObj = ref({})

@@ -13,7 +13,6 @@ const breedData = ref([])
 const favoritesList = ref([])
 const popularBreeds = ref([])
 const showFilters = ref(false)
-// const searchResults = ref([])
 const searching = ref(false)
 const searchTerm = ref('')
 const groupFilter = ref('')
@@ -21,9 +20,9 @@ const sizeFilter = ref('')
 const childFilter = ref('')
 const exerciseFilter = ref('')
 
-f()
+fetchBreeds()
 
-async function f() {
+async function fetchBreeds() {
   try {
     const response = await axios.get('https://registry.dog/api/v1')
     breedData.value = response.data.data
