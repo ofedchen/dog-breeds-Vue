@@ -1,6 +1,5 @@
 <script setup>
-import axios from 'axios'
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, watch, computed, inject, watchEffect } from 'vue'
 
 import SearchFilters from './SearchFilters.vue';
 import NavSizes from './NavSizes.vue';
@@ -9,9 +8,12 @@ import SearchResults from './SearchResults.vue';
 
 import filterIcon from '../assets/adjustment_11798090.png'
 
-const breedData = ref([])
+const breedData = inject('breeds')
+watchEffect(() => {
+  console.log('Breeds updated:', breedData.value);
+});
+
 const favoritesList = ref([])
-const popularBreeds = ref([])
 const showFilters = ref(false)
 const searching = ref(false)
 const searchTerm = ref('')
@@ -19,21 +21,6 @@ const groupFilter = ref('')
 const sizeFilter = ref('')
 const childFilter = ref('')
 const exerciseFilter = ref('')
-
-fetchBreeds()
-
-async function fetchBreeds() {
-  try {
-    const response = await axios.get('https://registry.dog/api/v1')
-    breedData.value = response.data.data
-    console.log(breedData.value, "fetch")
-
-    toPopular();
-  }
-  catch (error) {
-    console.log('Error fetching breeds')
-  }
-}
 
 
 onMounted(() => {
@@ -46,18 +33,27 @@ onMounted(() => {
 
 
 // function to add a breed to Popular section
+const popularBreeds = computed(() => {
+  if (!breedData.value) return []
+  console.log('Creating popular breeds section');
+  return toPopular();
+})
+
+
 function toPopular() {
   let pop_breeds = [];
+  let indexes = []
   for (let [index, breed] of breedData.value.entries()) {
     if (breed.general.popularity > 4) {
-      pop_breeds.push(index);
+      indexes.push(index);
     }
   }
   for (let i = 0; i < 5; i++) {
-    let index = Math.floor(Math.random() * pop_breeds.length);
-    popularBreeds.value.push(breedData.value[index]);
-    pop_breeds.splice(index, 1);
+    let index = Math.floor(Math.random() * indexes.length);
+    pop_breeds.push(breedData.value[index]);
+    indexes.splice(index, 1);
   }
+  return pop_breeds
 }
 
 
