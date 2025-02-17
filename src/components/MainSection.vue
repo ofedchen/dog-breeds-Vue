@@ -38,16 +38,16 @@ const popularBreeds = computed(() => {
 
 function toPopular() {
   let pop_breeds = [];
-  let indexes = []
+  let pop_indexes = []
   for (let [index, breed] of breedData.value.entries()) {
     if (breed.general.popularity > 4) {
-      indexes.push(index);
+      pop_indexes.push(index);
     }
   }
   for (let i = 0; i < 5; i++) {
-    let index = Math.floor(Math.random() * indexes.length);
-    pop_breeds.push(breedData.value[index]);
-    indexes.splice(index, 1);
+    let index = Math.floor(Math.random() * pop_indexes.length);
+    pop_breeds.push(breedData.value[pop_indexes[index]]);
+    pop_indexes.splice(index, 1);
   }
   return pop_breeds
 }
