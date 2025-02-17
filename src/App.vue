@@ -1,5 +1,24 @@
 <script setup>
 import { RouterView } from 'vue-router';
+import { ref, onMounted, provide, watch } from 'vue'
+
+const favoritesList = ref([])
+
+onMounted(() => {
+  // function to sync favorites with the local storage
+  if (localStorage.getItem("fav") && localStorage.getItem("fav") !== null) {
+    favoritesList.value = JSON.parse(localStorage.getItem("fav"))
+    console.log(favoritesList.value)
+  }
+});
+
+watch(favoritesList, (newVal) => {
+  localStorage.setItem('fav', JSON.stringify(newVal))
+  console.log(favoritesList.value)
+}, { deep: true })
+
+provide('favorites', favoritesList)
+
 </script>
 
 <template>

@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import axios from 'axios'
-import { ref, onBeforeMount } from 'vue'
+import { ref } from 'vue'
 
 const app = createApp(App)
 

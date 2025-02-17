@@ -1,31 +1,24 @@
 <script setup>
-import { RouterLink, useRoute, useRouter } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
 
 const isHomeView = (routePath) => {
-    const route = useRoute();
-    return route.path === routePath
-}
-
-const router = useRouter()
-
-function navigate(size) {
-    router.push(`/breeds/${size}`)
-    console.log("navigated")
+  const route = useRoute();
+  return route.path === routePath
 }
 
 </script>
 
 <template>
-    <nav>
+  <nav>
     <ul id="sizes">
-        <RouterLink to="/" v-show="!isHomeView('/')" style="text-decoration: underline;">All breeds</RouterLink>
-        <li @click="navigate(1)" id="1" style="text-decoration: underline;">X-Small</li>
-        <RouterLink to="/breeds/2" id="2" style="text-decoration: underline;">Small</RouterLink>
-        <RouterLink to="/breeds/3" id="3" style="text-decoration: underline;">Medium</RouterLink>
-        <RouterLink to="/breeds/4" id="4" style="text-decoration: underline;">Large</RouterLink>
-        <RouterLink to="/breeds/5" id="5" style="text-decoration: underline;">X-Large</RouterLink>
+      <RouterLink to="/" v-show="!isHomeView('/')" style="text-decoration: underline;">All breeds</RouterLink>
+      <RouterLink to="/breeds/1" id="1" style="text-decoration: underline;">X-Small</RouterLink>
+      <RouterLink to="/breeds/2" id="2" style="text-decoration: underline;">Small</RouterLink>
+      <RouterLink to="/breeds/3" id="3" style="text-decoration: underline;">Medium</RouterLink>
+      <RouterLink to="/breeds/4" id="4" style="text-decoration: underline;">Large</RouterLink>
+      <RouterLink to="/breeds/5" id="5" style="text-decoration: underline;">X-Large</RouterLink>
     </ul>
-</nav>
+  </nav>
 </template>
 
 <style scoped>
@@ -44,5 +37,4 @@ li {
   text-decoration: underline;
   cursor: pointer;
 }
-
 </style>

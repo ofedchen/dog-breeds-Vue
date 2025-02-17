@@ -1,10 +1,11 @@
 <script setup>
-import { ref, onMounted, watch, computed, inject, watchEffect } from 'vue'
+import { ref, computed, inject, watchEffect, provide } from 'vue'
 
 import SearchFilters from './SearchFilters.vue';
 import NavSizes from './NavSizes.vue';
 import BreedCard from './BreedCard.vue';
 import SearchResults from './SearchResults.vue';
+import FavoriteIcon from './FavoriteIcon.vue';
 
 import filterIcon from '../assets/adjustment_11798090.png'
 
@@ -13,7 +14,7 @@ watchEffect(() => {
   console.log('Breeds updated:', breedData.value);
 });
 
-const favoritesList = ref([])
+
 const showFilters = ref(false)
 const searching = ref(false)
 const searchTerm = ref('')
@@ -22,14 +23,8 @@ const sizeFilter = ref('')
 const childFilter = ref('')
 const exerciseFilter = ref('')
 
-
-onMounted(() => {
-  // function to sync favorites with the local storage
-  if (localStorage.getItem("fav") && localStorage.getItem("fav") !== null) {
-    favoritesList.value = JSON.parse(localStorage.getItem("fav"))
-    console.log(favoritesList.value)
-  }
-});
+const searchObj = ref({})
+provide('searchObj', searchObj)
 
 
 // function to add a breed to Popular section
@@ -56,30 +51,6 @@ function toPopular() {
   return pop_breeds
 }
 
-
-//checking if in favorites
-function checkFavorites(breedId) {
-  if (favoritesList.value.indexOf(breedId) < 0) {
-    return "https://img.icons8.com/?size=100&id=85038&format=png&color=000000"
-  }
-  else {
-    return "https://img.icons8.com/?size=100&id=85138&format=png&color=000000"
-  }
-}
-
-watch(favoritesList, (newVal) => {
-  localStorage.setItem('fav', JSON.stringify(newVal))
-}, { deep: true })
-
-//adding or removing from favorites list
-function addToFavorites(id) {
-  if (favoritesList.value.indexOf(id) >= 0) {
-    favoritesList.value.splice(favoritesList.value.indexOf(id), 1)
-  }
-  else {
-    favoritesList.value.push(id)
-  }
-}
 
 //Search and filtering function returns a searchResults array
 const searchResults = computed(() => {
@@ -126,6 +97,7 @@ function toggleFilters() {
 function clearFilters() {
   searching.value = false
   showFilters.value = false
+  searchObj.value = {}
 }
 
 </script>
@@ -139,13 +111,13 @@ function clearFilters() {
   <h2 id="popular-heading">Popular</h2>
   <section id="popular">
     <BreedCard v-for="breed in popularBreeds" :breed="breed" :key="breed.id">
-      <img class="favorite" :src="checkFavorites(breed.id)" @click="addToFavorites(breed.id)">
+      <FavoriteIcon :breed="breed" />
     </BreedCard>
   </section>
   <h2>All breeds</h2>
   <section>
     <BreedCard v-for="breed in breedData" :breed="breed" :key="breed.id">
-      <img class="favorite" :src="checkFavorites(breed.id)" @click="addToFavorites(breed.id)">
+      <FavoriteIcon :breed="breed" />
     </BreedCard>
   </section>
 </template>
