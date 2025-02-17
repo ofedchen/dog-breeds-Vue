@@ -1,0 +1,762 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..8ee54e8
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,30 @@
++# Logs
++logs
++*.log
++npm-debug.log*
++yarn-debug.log*
++yarn-error.log*
++pnpm-debug.log*
++lerna-debug.log*
++
++node_modules
++.DS_Store
++dist
++dist-ssr
++coverage
++*.local
++
++/cypress/videos/
++/cypress/screenshots/
++
++# Editor directories and files
++.vscode/*
++!.vscode/extensions.json
++.idea
++*.suo
++*.ntvs*
++*.njsproj
++*.sln
++*.sw?
++
++*.tsbuildinfo
+diff --git a/README.md b/README.md
+index 5aced77..dc34312 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1 @@
+-# dog-breeds-Vue
++# A Vue.js template for Vite
+diff --git a/my-project/assets/adjustment_11798090.png b/assets/adjustment_11798090.png
+similarity index 100%
+rename from my-project/assets/adjustment_11798090.png
+rename to assets/adjustment_11798090.png
+diff --git a/index.html b/index.html
+index 9acfc5b..bb0c60b 100644
+--- a/index.html
++++ b/index.html
+@@ -1,92 +1,13 @@
+ <!DOCTYPE html>
+ <html lang="en">
+-
+-<head>
+-    <meta charset="UTF-8">
+-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+-    <title>Discover the dog breed you'll love!</title>
+-    <link rel="stylesheet" href="style.css">
+-    <script src='https://unpkg.com/vue@3'></script>
+-</head>
+-
+-<body>
+-    <header>
+-        <h1>Discover the perfect dog breed for you</h1>
+-    </header>
+-    <main id="app">
+-        <div class="search">
+-            <input type="text" placeholder="Search by breed name" id="searchfield" value="">
+-            <img class="icon" src="adjustment_11798090.png" alt="filters">
+-            <h5 id="remove-filters">⨯ Clear filters/search</h5>
+-            <div id="filter-container">
+-                <div id="filters">
+-                    <label for="filter-group">Group</label>
+-                    <select name="group" id="filter-group">
+-                        <option value="">Select</option>
+-                        <option value="Companion">Companion</option>
+-                        <option value="Sporting">Sporting</option>
+-                        <option value="Working">Working</option>
+-                        <option value="Hound">Hound</option>
+-                        <option value="Guardian">Guardian</option>
+-                        <option value="Terrier">Terrier</option>
+-                        <option value="Herding">Herding</option>
+-                    </select>
+-
+-                    <label for="filter-size">Size</label>
+-                    <select name="size" id="filter-size">
+-                        <option value="">Select</option>
+-                        <option value="1">X-Small</option>
+-                        <option value="2">Small</option>
+-                        <option value="3">Medium</option>
+-                        <option value="4">Large</option>
+-                        <option value="5">X-Large</option>
+-                    </select>
+-
+-                    <label for="filter-child">Child friendly</label>
+-                    <select name="child-friendliness" id="filter-child">
+-                        <option value="">Select</option>
+-                        <option value="1">Not recommended</option>
+-                        <option value="2">Not too friendly</option>
+-                        <option value="3">Ok</option>
+-                        <option value="4">Good</option>
+-                        <option value="5">Great</option>
+-                    </select>
+-
+-                    <label for="filter-exercise">Exercise needs</label>
+-                    <select name="exercise-needs" id="filter-exercise">
+-                        <option value="">Select</option>
+-                        <option value="1">low</option>
+-                        <option value="2">up to 30 min</option>
+-                        <option value="3">up to 1 hour</option>
+-                        <option value="4">up to 2 hours</option>
+-                        <option value="5">2+ hours</option>
+-                    </select>
+-                    <button>Search</button>
+-                </div>
+-            </div>
+-            <ul id="sizes">
+-                <li id="1">X-Small</li>
+-                <li id="2">Small</li>
+-                <li id="3">Medium</li>
+-                <li id="4">Large</li>
+-                <li id="5">X-Large</li>
+-            </ul>
+-        </div>
+-        <div id="search-container"></div>
+-        <h2 id="popular-heading">Popular</h2>
+-        <section id="popular">
+-        </section>
+-        <h2>All breeds</h2>
+-        <section id="all-breeds">
+-            <breed-card></breed-card>
+-        </section>
+-    </main>
+-    <footer>
+-        <p>Made using <a href="https://github.com/chase-manning/open-dog-registry" target="_blank">Open Dog Registry
+-                API</a></p>
+-    </footer>
+-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+-    <script src="index.js"></script>
+-</body>
+-
+-</html>
+\ No newline at end of file
++  <head>
++    <meta charset="utf-8" />
++    <title>It's a website dedicated to dog breeds!</title>
++    <meta content="initial-scale=1.0, width=device-width" name="viewport" />
++    <link href="/dog.png" rel="icon" />
++  </head>
++  <body>
++    <div id="app"></div>
++    <script src="/src/main.js" type="module"></script>
++  </body>
++</html>
+diff --git a/index.js b/index.js
+deleted file mode 100644
+index 17216d4..0000000
+--- a/index.js
++++ /dev/null
+@@ -1,249 +0,0 @@
+-// const app = Vue.createApp({})
+-
+-// app.component('breed-card', {
+-//     created() {
+-//         this.displayBreeds()
+-//     },
+-//     data() {
+-//         return {
+-//             breeds: null,
+-//             iconFav: {
+-//                 // default: "https://img.icons8.com/?size=100&id=85138&format=png&color=000000",
+-//                 // added: "https://img.icons8.com/?size=100&id=85038&format=png&color=000000"
+-//             }
+-//         }
+-//     },
+-//     methods: {
+-//         displayBreeds() {
+-//             fetch('https://registry.dog/api/v1')
+-//                 .then(response => response.json())
+-//                 .then(result => {
+-//                     this.breeds = result.data
+-//                 })
+-//         }
+-//     },
+-//     template: `
+-//     <div id="breed.id" v-for="breed in breeds">
+-//         <img :src="breed.images.small.studio" :alt="breed.general.name">
+-//         <h3>{{ breed.general.name }}</h3>
+-//         <h4>{{ breed.general.group }}</h4>
+-//         <img class="favorite" :src="iconFav">
+-//     </div>
+-//     `
+-// })
+-
+-// app.mount('#app')
+-
+-
+-
+-
+-// let favoritesList = []
+-
+-// //Restore favorites from local storage
+-
+-// if (localStorage.getItem("fav") && localStorage.getItem("fav") !== null) {
+-//     favoritesList = JSON.parse(localStorage.getItem("fav"))
+-//     console.log(favoritesList)
+-// }
+-
+-/*
+-
+-//DISPLAYS THE BREEDS
+-function displayOnPage(result) {
+-    // for (breed of result.data) {
+-    //     breedContainer = document.createElement('div')
+-    //     let breedImage = document.createElement('img')
+-    //     let breedName = document.createElement('h3')
+-    //     let breedLink = document.createElement("a")
+-    //     let breedGroup = document.createElement('h4')
+-    //     let favoriteIcon = document.createElement("img") //Should be the last child! used in a favorite function
+-
+-    // breedContainer.append(breedImage, breedName, breedGroup, favoriteIcon)
+-    // allSection.appendChild(breedContainer)
+-    // breedName.appendChild(breedLink)
+-
+-    // breedContainer.setAttribute("id", breed.id)
+-    // breedContainer.setAttribute("class", breed.id) 
+-    // breedLink.href = `/breed-page.html?breed_id=${breed.id}` //to open the page with additional info
+-    // breedLink.textContent = breed.general.name
+-    // breedGroup.textContent = breed.general.group
+-    // breedImage.setAttribute("src", breed.images.small.studio)
+-
+-    if (favoritesList.indexOf(breed.id) >= 0) {
+-        favoriteIcon.setAttribute("src", "https://img.icons8.com/?size=100&id=85138&format=png&color=000000")
+-    }
+-    else {
+-        favoriteIcon.setAttribute("src", "https://img.icons8.com/?size=100&id=85038&format=png&color=000000")
+-    }
+-    favoriteIcon.setAttribute("class", "favorite")
+-
+-    addToFavorites(breed, breedContainer.getAttribute("id"))
+-
+-    //randomly selects which breeds to whow in the Popular section
+-    if (breed.general.popularity > 4) {
+-        let add = Math.floor(Math.random() * 7)
+-        if (add > 4) {
+-            let breedContainerPop = breedContainer.cloneNode(true)
+-            breedContainerPop.setAttribute("id", breed.id + "-pop")
+-            popularSection.appendChild(breedContainerPop)
+-            addToFavorites(breed, breedContainerPop.getAttribute("id"))
+-        }
+-    }
+-}
+-}
+-
+-//FAVORITES
+-function addToFavorites(breed, id) {
+-    let addToFav = document.getElementById(id).lastChild
+-
+-    addToFav.addEventListener("click", () => {
+-        if (favoritesList.indexOf(breed.id) >= 0) {
+-            addToFav.setAttribute("src", "https://img.icons8.com/?size=100&id=85038&format=png&color=000000")
+-            favoritesList.splice(favoritesList.indexOf(breed.id), 1)
+-        }
+-        else {
+-            addToFav.setAttribute("src", "https://img.icons8.com/?size=100&id=85138&format=png&color=000000")
+-            favoritesList.push(breed.id)
+-        }
+-
+-        localStorage.setItem("fav", JSON.stringify(favoritesList))
+-        console.log(localStorage.getItem("fav"))
+-    })
+-
+-
+-}
+-
+-
+-//SHOW FILTERS
+-let hidden = true
+-document.querySelector(".icon").addEventListener("click", () => {
+-    if (hidden) {
+-        document.querySelector("#filters").style.display = "flex"
+-        hidden = false
+-    } else {
+-        document.querySelector("#filters").style.display = "none"
+-        hidden = true
+-    }
+-})
+-
+-//SEARCH AND FILTERS FUNCTION
+-function filterSearch(breedArray) {
+-    let counter = 0
+-
+-    for (breed of breedArray) {
+-        if (document.getElementById("searchfield").value.length >= 2) {
+-            if (!breed.general.name.toLowerCase().includes(document.getElementById("searchfield").value)) {
+-                continue
+-            }
+-        }
+-
+-        if (document.getElementById("filter-size").value) {
+-            if (Number(document.getElementById("filter-size").value) !== breed.physical.size) {
+-                continue
+-            }
+-        }
+-
+-        if (document.getElementById("filter-group").value) {
+-            if (document.getElementById("filter-group").value !== breed.general.group) {
+-                continue
+-            }
+-        }
+-
+-        if (document.getElementById("filter-child").value) {
+-            if (Number(document.getElementById("filter-child").value) !== breed.behavior.childFriendly) {
+-                continue
+-            }
+-        }
+-
+-        if (document.getElementById("filter-exercise").value) {
+-            if (Number(document.getElementById("filter-exercise").value) !== breed.care.exerciseNeeds) {
+-                continue
+-            }
+-        }
+-
+-        counter += 1
+-        let breedContainerSearch = document.getElementById(breed.id).cloneNode(true)
+-        breedContainerSearch.setAttribute("id", breed.id + "-search")
+-        searchResultsSection.appendChild(breedContainerSearch)
+-        addToFavorites(breed, breedContainerSearch.getAttribute("id"))
+-    }
+-    return counter
+-}
+-
+-//DISPLAY SEARCH RESULTS 
+-function displaySearchResults() {
+-    searchContainer.innerHTML = ""
+-    searchResultsH2 = document.createElement("h2")
+-    searchResultsSection = document.createElement("section")
+-    searchContainer.appendChild(searchResultsSection)
+-    searchContainer.insertBefore(searchResultsH2, searchResultsSection)
+-
+-    let counterResults = filterSearch(breedData)
+-
+-    searchResultsH2.innerHTML = `Search results for "${document.getElementById("searchfield").value}" (${counterResults})`
+-    document.getElementById("sizes").style.display = "none"
+-    removeFilters.style.display = "block"
+-}
+-
+-
+-//APPLYING ALL FILTERS AND SEARCH
+-//Button event
+-document.querySelector("button").addEventListener("click", (breedData) => displaySearchResults(breedData))
+-
+-//Enter key event
+-document.addEventListener(
+-    "keydown",
+-    (event) => {
+-        const keyName = event.key;
+-
+-        if (keyName === "Enter")
+-            displaySearchResults(breedData)
+-    });
+-
+-
+-// CLEARING THE SEARCH RESULTS
+-removeFilters.addEventListener("click", () => {
+-    searchContainer.innerHTML = ""
+-    removeFilters.style.display = "none"
+-    document.getElementById("sizes").style.display = "flex"
+-    document.querySelector("#filters").style.display = "none"
+-    hidden = true
+-
+-    let filtersToRemove = document.querySelectorAll("select")
+-    for (filter of filtersToRemove) {
+-        filter.value = ""
+-    }
+-    document.getElementById("searchfield").value = ""
+-})
+-
+-// QUICK FILTERS BY SIZE
+-let sizes = document.querySelectorAll("li")
+-for (let size of sizes) {
+-    size.addEventListener("click", () => {
+-        searchResultsH2 = document.createElement("h2")
+-        searchResultsSection = document.createElement("section")
+-        searchResultsH2.textContent = size.textContent + " breeds"
+-        searchContainer.appendChild(searchResultsH2)
+-        searchContainer.appendChild(searchResultsSection)
+-
+-        filterBySize(breedData, size.getAttribute("id"))
+-    })
+-}
+-
+-// FUNCTION FOR QUICK FILTERS BY SIZE
+-function filterBySize(breedData, id) {
+-
+-    for (breed of breedData) {
+-        if (Number(id) === breed.physical.size) {
+-            let breedContainerSearch = document.getElementById(breed.id).cloneNode(true)
+-            breedContainerSearch.setAttribute("id", breed.id + "-filter")
+-            searchResultsSection.appendChild(breedContainerSearch)
+-
+-            addToFavorites(breed, breedContainerSearch.getAttribute("id"))
+-
+-            removeFilters.style.display = "block"
+-        }
+-    }
+-}
+-
+-*/
+diff --git a/my-project/.gitignore b/my-project/.gitignore
+deleted file mode 100644
+index 98976ff..0000000
+--- a/my-project/.gitignore
++++ /dev/null
+@@ -1,8 +0,0 @@
+-*.local
+-dist
+-dist-ssr
+-.DS_Store
+-node_modules
+-.vscode
+-checklist.md
+-LICENSE.md
+diff --git a/my-project/README.md b/my-project/README.md
+deleted file mode 100644
+index dc34312..0000000
+--- a/my-project/README.md
++++ /dev/null
+@@ -1 +0,0 @@
+-# A Vue.js template for Vite
+diff --git a/my-project/index.html b/my-project/index.html
+deleted file mode 100644
+index bb0c60b..0000000
+--- a/my-project/index.html
++++ /dev/null
+@@ -1,13 +0,0 @@
+-<!DOCTYPE html>
+-<html lang="en">
+-  <head>
+-    <meta charset="utf-8" />
+-    <title>It's a website dedicated to dog breeds!</title>
+-    <meta content="initial-scale=1.0, width=device-width" name="viewport" />
+-    <link href="/dog.png" rel="icon" />
+-  </head>
+-  <body>
+-    <div id="app"></div>
+-    <script src="/src/main.js" type="module"></script>
+-  </body>
+-</html>
+diff --git a/my-project/package-lock.json b/package-lock.json
+similarity index 91%
+rename from my-project/package-lock.json
+rename to package-lock.json
+index 0208595..51a04fb 100644
+--- a/my-project/package-lock.json
++++ b/package-lock.json
+@@ -8,6 +8,7 @@
+       "name": "my-project",
+       "version": "0.0.0",
+       "dependencies": {
++        "axios": "^1.7.9",
+         "vue": "^3.5.13"
+       },
+       "devDependencies": {
+@@ -879,12 +880,50 @@
+       "integrity": "sha512-/hnE/qP5ZoGpol0a5mDi45bOd7t3tjYJBjsgCsivow7D48cJeV5l05RD82lPqi7gRiphZM37rnhW1l6ZoCNNnQ==",
+       "license": "MIT"
+     },
++    "node_modules/asynckit": {
++      "version": "0.4.0",
++      "resolved": "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz",
++      "integrity": "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==",
++      "license": "MIT"
++    },
++    "node_modules/axios": {
++      "version": "1.7.9",
++      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.9.tgz",
++      "integrity": "sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==",
++      "license": "MIT",
++      "dependencies": {
++        "follow-redirects": "^1.15.6",
++        "form-data": "^4.0.0",
++        "proxy-from-env": "^1.1.0"
++      }
++    },
++    "node_modules/combined-stream": {
++      "version": "1.0.8",
++      "resolved": "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz",
++      "integrity": "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==",
++      "license": "MIT",
++      "dependencies": {
++        "delayed-stream": "~1.0.0"
++      },
++      "engines": {
++        "node": ">= 0.8"
++      }
++    },
+     "node_modules/csstype": {
+       "version": "3.1.3",
+       "resolved": "https://registry.npmjs.org/csstype/-/csstype-3.1.3.tgz",
+       "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==",
+       "license": "MIT"
+     },
++    "node_modules/delayed-stream": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz",
++      "integrity": "sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.4.0"
++      }
++    },
+     "node_modules/entities": {
+       "version": "4.5.0",
+       "resolved": "https://registry.npmjs.org/entities/-/entities-4.5.0.tgz",
+@@ -944,6 +983,40 @@
+       "integrity": "sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==",
+       "license": "MIT"
+     },
++    "node_modules/follow-redirects": {
++      "version": "1.15.9",
++      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz",
++      "integrity": "sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==",
++      "funding": [
++        {
++          "type": "individual",
++          "url": "https://github.com/sponsors/RubenVerborgh"
++        }
++      ],
++      "license": "MIT",
++      "engines": {
++        "node": ">=4.0"
++      },
++      "peerDependenciesMeta": {
++        "debug": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/form-data": {
++      "version": "4.0.1",
++      "resolved": "https://registry.npmjs.org/form-data/-/form-data-4.0.1.tgz",
++      "integrity": "sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==",
++      "license": "MIT",
++      "dependencies": {
++        "asynckit": "^0.4.0",
++        "combined-stream": "^1.0.8",
++        "mime-types": "^2.1.12"
++      },
++      "engines": {
++        "node": ">= 6"
++      }
++    },
+     "node_modules/fsevents": {
+       "version": "2.3.3",
+       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
+@@ -968,6 +1041,27 @@
+         "@jridgewell/sourcemap-codec": "^1.5.0"
+       }
+     },
++    "node_modules/mime-db": {
++      "version": "1.52.0",
++      "resolved": "https://registry.npmjs.org/mime-db/-/mime-db-1.52.0.tgz",
++      "integrity": "sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
++    "node_modules/mime-types": {
++      "version": "2.1.35",
++      "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.35.tgz",
++      "integrity": "sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==",
++      "license": "MIT",
++      "dependencies": {
++        "mime-db": "1.52.0"
++      },
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
+     "node_modules/nanoid": {
+       "version": "3.3.8",
+       "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.8.tgz",
+@@ -1020,6 +1114,12 @@
+         "node": "^10 || ^12 || >=14"
+       }
+     },
++    "node_modules/proxy-from-env": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz",
++      "integrity": "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==",
++      "license": "MIT"
++    },
+     "node_modules/rollup": {
+       "version": "4.29.1",
+       "resolved": "https://registry.npmjs.org/rollup/-/rollup-4.29.1.tgz",
+@@ -1604,11 +1704,39 @@
+       "resolved": "https://registry.npmjs.org/@vue/shared/-/shared-3.5.13.tgz",
+       "integrity": "sha512-/hnE/qP5ZoGpol0a5mDi45bOd7t3tjYJBjsgCsivow7D48cJeV5l05RD82lPqi7gRiphZM37rnhW1l6ZoCNNnQ=="
+     },
++    "asynckit": {
++      "version": "0.4.0",
++      "resolved": "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz",
++      "integrity": "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="
++    },
++    "axios": {
++      "version": "1.7.9",
++      "resolved": "https://registry.npmjs.org/axios/-/axios-1.7.9.tgz",
++      "integrity": "sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==",
++      "requires": {
++        "follow-redirects": "^1.15.6",
++        "form-data": "^4.0.0",
++        "proxy-from-env": "^1.1.0"
++      }
++    },
++    "combined-stream": {
++      "version": "1.0.8",
++      "resolved": "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz",
++      "integrity": "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==",
++      "requires": {
++        "delayed-stream": "~1.0.0"
++      }
++    },
+     "csstype": {
+       "version": "3.1.3",
+       "resolved": "https://registry.npmjs.org/csstype/-/csstype-3.1.3.tgz",
+       "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="
+     },
++    "delayed-stream": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz",
++      "integrity": "sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ=="
++    },
+     "entities": {
+       "version": "4.5.0",
+       "resolved": "https://registry.npmjs.org/entities/-/entities-4.5.0.tgz",
+@@ -1652,6 +1780,21 @@
+       "resolved": "https://registry.npmjs.org/estree-walker/-/estree-walker-2.0.2.tgz",
+       "integrity": "sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w=="
+     },
++    "follow-redirects": {
++      "version": "1.15.9",
++      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz",
++      "integrity": "sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ=="
++    },
++    "form-data": {
++      "version": "4.0.1",
++      "resolved": "https://registry.npmjs.org/form-data/-/form-data-4.0.1.tgz",
++      "integrity": "sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==",
++      "requires": {
++        "asynckit": "^0.4.0",
++        "combined-stream": "^1.0.8",
++        "mime-types": "^2.1.12"
++      }
++    },
+     "fsevents": {
+       "version": "2.3.3",
+       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
+@@ -1667,6 +1810,19 @@
+         "@jridgewell/sourcemap-codec": "^1.5.0"
+       }
+     },
++    "mime-db": {
++      "version": "1.52.0",
++      "resolved": "https://registry.npmjs.org/mime-db/-/mime-db-1.52.0.tgz",
++      "integrity": "sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg=="
++    },
++    "mime-types": {
++      "version": "2.1.35",
++      "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.35.tgz",
++      "integrity": "sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==",
++      "requires": {
++        "mime-db": "1.52.0"
++      }
++    },
+     "nanoid": {
+       "version": "3.3.8",
+       "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.8.tgz",
+@@ -1687,6 +1843,11 @@
+         "source-map-js": "^1.2.1"
+       }
+     },
++    "proxy-from-env": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz",
++      "integrity": "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg=="
++    },
+     "rollup": {
+       "version": "4.29.1",
+       "resolved": "https://registry.npmjs.org/rollup/-/rollup-4.29.1.tgz",
+diff --git a/my-project/package.json b/package.json
+similarity index 92%
+rename from my-project/package.json
+rename to package.json
+index 76c0abf..34ebd62 100644
+--- a/my-project/package.json
++++ b/package.json
+@@ -1,5 +1,6 @@
+ {
+   "dependencies": {
++    "axios": "^1.7.9",
+     "vue": "^3.5.13"
+   },
+   "devDependencies": {
+diff --git a/my-project/public/dog.png b/public/dog.png
+similarity index 100%
+rename from my-project/public/dog.png
+rename to public/dog.png
+diff --git a/my-project/src/App.vue b/src/App.vue
+similarity index 95%
+rename from my-project/src/App.vue
+rename to src/App.vue
+index a066d6b..6b31860 100644
+--- a/my-project/src/App.vue
++++ b/src/App.vue
+@@ -46,14 +46,18 @@ onMounted(() => {
+ // function to add a breed to Popular section
+ function toPopular() {
+   console.log(breedData.value, "before fav")
+-  for (let breed of breedData.value) {
++  let pop_breeds = [];
++  for (let [index, breed] of breedData.value.entries()) {
+     if (breed.general.popularity > 4) {
+-      let add = Math.floor(Math.random() * 7)
+-      if (add > 4) {
+-        popularBreeds.value.push(breed)
+-      }
++      pop_breeds.push(index);
+     }
+   }
++  for (let i = 0; i < 5; i++){
++    let index = Math.floor(Math.random() * pop_breeds.length);
++    popularBreeds.value.push(breedData.value[index]);
++    pop_breeds.splice(index, 1);
++  }
++
+   console.log(popularBreeds.value, "popular")
+ }
+ 
+diff --git a/my-project/src/components/BreedCard.vue b/src/components/BreedCard.vue
+similarity index 100%
+rename from my-project/src/components/BreedCard.vue
+rename to src/components/BreedCard.vue
+diff --git a/my-project/src/components/NavBar.vue b/src/components/NavBar.vue
+similarity index 100%
+rename from my-project/src/components/NavBar.vue
+rename to src/components/NavBar.vue
+diff --git a/my-project/src/components/SearchResults.vue b/src/components/SearchResults.vue
+similarity index 100%
+rename from my-project/src/components/SearchResults.vue
+rename to src/components/SearchResults.vue
+diff --git a/my-project/src/main.js b/src/main.js
+similarity index 100%
+rename from my-project/src/main.js
+rename to src/main.js
+diff --git a/my-project/vite.config.js b/vite.config.js
+similarity index 100%
+rename from my-project/vite.config.js
+rename to vite.config.js

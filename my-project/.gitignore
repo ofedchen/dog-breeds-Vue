@@ -1,8 +1,0 @@
-*.local
-dist
-dist-ssr
-.DS_Store
-node_modules
-.vscode
-checklist.md
-LICENSE.md
