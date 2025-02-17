@@ -1,5 +1,5 @@
 <script setup>
-import { RouterView } from 'vue-router';
+import { RouterView, RouterLink } from 'vue-router';
 import { ref, onMounted, provide, watch } from 'vue'
 
 const favoritesList = ref([])
@@ -23,6 +23,7 @@ provide('favorites', favoritesList)
 
 <template>
   <h1>Discover the perfect dog breed for you</h1>
+  <RouterLink to="/favorites"><span id="fav-menu">❤️ Favorite breeds</span></RouterLink>
   <RouterView />
   <footer>
     <a href="https://www.flaticon.com/free-icons/dog" title="dog icons">Dog icons created by Freepik - Flaticon</a>
@@ -65,6 +66,12 @@ input {
   height: 40px;
   cursor: pointer;
   margin: 7px;
+}
+
+#fav-menu {
+  position: relative;
+  left: 80%;
+  margin-block: 1em;
 }
 
 #remove-filters {

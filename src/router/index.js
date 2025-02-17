@@ -2,6 +2,7 @@ import { createRouter, createWebHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import BySizeView from '../views/BySizeView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
+import MyFavoritesView from '../views/MyFavoritesView.vue'
 
 
 const router = createRouter( {
@@ -16,6 +17,11 @@ const router = createRouter( {
             path: '/breeds/:size',
             name: 'size',
             component: BySizeView
+        },
+        {
+            path: '/favorites',
+            name: 'favorites',
+            component: MyFavoritesView
         },
         {
             path: '/:catchAll(.*)',
