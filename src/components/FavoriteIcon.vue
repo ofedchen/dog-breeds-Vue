@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject } from 'vue'
+import { inject } from 'vue'
 
 
 defineProps({
@@ -9,7 +9,7 @@ defineProps({
   }
 })
 
-const favoritesList = inject('favorites')
+const {favoritesList, addToFavorites} = inject('favorites')
 
 //checking if in favorites
 function checkFavorites(breedId) {
@@ -21,15 +21,6 @@ function checkFavorites(breedId) {
   }
 }
 
-//adding or removing from favorites list
-function addToFavorites(id) {
-  if (favoritesList.value.indexOf(id) >= 0) {
-    favoritesList.value.splice(favoritesList.value.indexOf(id), 1)
-  }
-  else {
-    favoritesList.value.push(id)
-  }
-}
 </script>
 
 <template>

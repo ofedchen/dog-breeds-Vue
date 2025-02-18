@@ -4,7 +4,7 @@ import { computed, inject, watchEffect } from 'vue';
 import BreedCard from '../components/BreedCard.vue';
 import FavoriteIcon from '../components/FavoriteIcon.vue';
 
-const favoritesList = inject('favorites')
+const {favoritesList, addToFavorites} = inject('favorites')
 const breedData = inject('breeds')
 
 watchEffect(() => {

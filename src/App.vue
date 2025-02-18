@@ -17,13 +17,26 @@ watch(favoritesList, (newVal) => {
   console.log(favoritesList.value)
 }, { deep: true })
 
-provide('favorites', favoritesList)
+//adding or removing from favorites list
+function addToFavorites(id) {
+  if (favoritesList.value.indexOf(id) >= 0) {
+    favoritesList.value.splice(favoritesList.value.indexOf(id), 1)
+  }
+  else {
+    favoritesList.value.push(id)
+  }
+}
+
+provide('favorites', {
+  favoritesList,
+  addToFavorites
+})
 
 </script>
 
 <template>
   <h1>Discover the perfect dog breed for you</h1>
-  <RouterLink to="/favorites"><span id="fav-menu">❤️ Favorite breeds</span></RouterLink>
+  <RouterLink to="/favorites"><span id="fav-menu">💙 Favorite breeds</span></RouterLink>
   <RouterView />
   <footer>
     <a href="https://www.flaticon.com/free-icons/dog" title="dog icons">Dog icons created by Freepik - Flaticon</a>
