@@ -1,1 +1,1 @@
-# A Vue.js template for Vite
+# Vue.js Vite dog breeds project
