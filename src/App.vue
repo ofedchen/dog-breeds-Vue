@@ -36,7 +36,7 @@ provide('favorites', {
 
 <template>
   <h1>Discover the perfect dog breed for you</h1>
-  <RouterLink to="/favorites"><span id="fav-menu">💙 Favorite breeds</span></RouterLink>
+  <RouterLink to="/favorites" style="margin-block: 1em;"><span id="fav-menu">💙 Favorite breeds</span></RouterLink>
   <RouterView />
   <footer>
     <a href="https://www.flaticon.com/free-icons/dog" title="dog icons">Dog icons created by Freepik - Flaticon</a>
@@ -105,6 +105,7 @@ input {
 }
 
 #filters {
+  display: flex;
   width: 100%;
   justify-content: flex-start;
   gap: 15px;

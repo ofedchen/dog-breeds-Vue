@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed, inject, watchEffect, provide } from 'vue'
-import { RouterLink } from 'vue-router';
 
 import SearchFilters from './SearchFilters.vue';
 import NavSizes from './NavSizes.vue';

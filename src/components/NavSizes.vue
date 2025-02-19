@@ -11,7 +11,7 @@ const isHomeView = (routePath) => {
 <template>
   <nav>
     <ul id="sizes">
-      <RouterLink to="/" v-show="!isHomeView('/')" style="text-decoration: underline;">All breeds</RouterLink>
+      <!-- <RouterLink to="/" v-show="!isHomeView('/')" style="text-decoration: underline;">All breeds</RouterLink> -->
       <RouterLink to="/breeds/1" id="1" style="text-decoration: underline;">X-Small</RouterLink>
       <RouterLink to="/breeds/2" id="2" style="text-decoration: underline;">Small</RouterLink>
       <RouterLink to="/breeds/3" id="3" style="text-decoration: underline;">Medium</RouterLink>
@@ -29,7 +29,7 @@ const isHomeView = (routePath) => {
   grid-column: span 3;
   align-items: center;
   margin-inline: auto;
-  margin-block: 1.5em;
+  padding-block: 1.5em;
 }
 
 li {

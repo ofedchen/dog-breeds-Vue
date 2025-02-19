@@ -4,7 +4,7 @@ import { computed, inject, watchEffect } from 'vue';
 import BreedCard from '../components/BreedCard.vue';
 import FavoriteIcon from '../components/FavoriteIcon.vue';
 
-const {favoritesList, addToFavorites} = inject('favorites')
+const { favoritesList, addToFavorites } = inject('favorites')
 const breedData = inject('breeds')
 
 watchEffect(() => {
@@ -12,11 +12,11 @@ watchEffect(() => {
   console.log('Breeds updated:', breedData.value);
 });
 
-const favoriteBreeds = computed (() => {
-    if (!breedData.value) return [];
+const favoriteBreeds = computed(() => {
+  if (!breedData.value) return [];
 
-console.log('Filtering favorites');
-return breedData.value.filter(breed => favoritesList.value.indexOf(breed.id) >= 0);
+  console.log('Filtering favorites');
+  return breedData.value.filter(breed => favoritesList.value.indexOf(breed.id) >= 0);
 })
 
 
@@ -27,8 +27,8 @@ const noFavorites = computed(() => favoritesList.value.length === 0)
 
 
 <template>
-    <RouterLink to="/">Back to homepage</RouterLink>
-  <h2>My favorite breeds</h2>
+  <RouterLink to="/">Back to homepage</RouterLink>
+  <h2 style="margin-block: 2em;">My favorite breeds</h2>
   <section>
     <h3 v-if="isLoading">Loading breeds...</h3>
     <h3 v-if="noFavorites">You haven't added favorite breeds yet</h3>

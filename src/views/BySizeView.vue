@@ -1,5 +1,5 @@
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, RouterLink } from 'vue-router';
 import { ref, watch, computed, inject, watchEffect } from 'vue';
 import BreedCard from '../components/BreedCard.vue';
 import NavSizes from '../components/NavSizes.vue';
@@ -39,6 +39,7 @@ const isLoading = computed(() => !breedData.value);
 
 
 <template>
+  <RouterLink to="/">Back to homepage</RouterLink>
   <NavSizes />
   <h2>List of {{ displaySize }} breeds</h2>
   <section>

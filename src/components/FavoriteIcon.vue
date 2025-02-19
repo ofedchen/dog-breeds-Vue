@@ -9,7 +9,7 @@ defineProps({
   }
 })
 
-const {favoritesList, addToFavorites} = inject('favorites')
+const { favoritesList, addToFavorites } = inject('favorites')
 
 //checking if in favorites
 function checkFavorites(breedId) {
