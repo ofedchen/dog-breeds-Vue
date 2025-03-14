@@ -21,14 +21,19 @@ const breedObject = computed(() => {
     return breedArray[0]
 })
 
-const height = ref(Math.round(breedObject.value.general.height / 0.39370)) //to cm
-const weight = ref(Math.round(breedObject.value.general.weight * 0.453)) // to kg
+const height = computed(() => {
+    return Math.round(breedObject.value.general.height / 0.39370)  //to cm
+})
+
+const weight = computed(() => {
+    return (Math.round(breedObject.value.general.weight * 0.453)) // to kg
+})
 
 </script>
 
 <template>
     <RouterLink to="/">Back to homepage</RouterLink>
-    <main>
+    <main v-if="breedData">
         <FavoriteIcon :breed="breedObject" />
         <img :src="breedObject.images.large.indoors" :alt="breedObject.id">
         <h2><span style="color: rgb(7, 84, 172);">{{ breedObject.general.name }}</span>: breed information</h2>

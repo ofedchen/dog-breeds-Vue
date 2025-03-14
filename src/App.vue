@@ -60,12 +60,17 @@ h1 {
   margin-block: 1.5em 1em;
 }
 
+h2 {
+  padding-inline: 15px;
+}
+
 .search {
   width: 90%;
   display: grid;
   grid-template-columns: 4fr 0.3fr 1fr;
   column-gap: 1em;
   row-gap: 8px;
+  padding-inline: 15px;
 }
 
 input {
