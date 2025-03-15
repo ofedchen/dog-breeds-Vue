@@ -1,6 +1,8 @@
 <script setup>
 import { defineProps } from 'vue';
-import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 defineProps({
     breed: {
@@ -9,15 +11,18 @@ defineProps({
     }
 })
 
+function navigateTo(id) {
+    router.push(`/${id}`)
+}
+
+
 </script>
 
 <template>
     <div :id="breed.id">
-        <RouterLink :to="`/${breed.id}`">
-        <img :src="breed.images.small.studio" :alt="breed.general.name">
-            <h3>{{ breed.general.name }}</h3>
+        <img @click="navigateTo(breed.id)" :src="breed.images.small.studio" :alt="breed.general.name">
+            <h3 @click="navigateTo(breed.id)">{{ breed.general.name }}</h3>
             <h4>{{ breed.general.group }}</h4>
             <slot></slot>
-        </RouterLink>
     </div>
 </template>

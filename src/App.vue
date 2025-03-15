@@ -169,6 +169,7 @@ section>div:hover {
 
 img {
   width: 150px;
+  cursor: pointer;
 }
 
 .favorite {
@@ -181,6 +182,7 @@ img {
 
 h3 {
   font-size: 1.1em;
+  cursor: pointer;
 }
 
 a {
