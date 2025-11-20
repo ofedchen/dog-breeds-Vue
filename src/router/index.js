@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import BySizeView from '../views/BySizeView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
@@ -6,7 +6,7 @@ import MyFavoritesView from '../views/MyFavoritesView.vue'
 import BreedView from '../views/BreedView.vue'
 
 
-const router = createRouter( {
+const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
@@ -25,13 +25,13 @@ const router = createRouter( {
             component: MyFavoritesView
         },
         {
-            path: '/:id',
+            path: '/breed/:id',
             name: 'breed-page',
             component: BreedView
         },
         {
             path: '/:catchAll(.*)',
-            name: 'not-found', 
+            name: 'not-found',
             component: NotFoundView
         }
     ]

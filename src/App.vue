@@ -52,12 +52,18 @@ provide('favorites', {
 }
 
 body {
-  margin-inline: 3em;
+  margin-inline: 1em;
+  margin-top: 3em;
 }
 
 h1 {
   text-align: center;
-  margin-block: 1.5em 1em;
+  margin-block: 2em 0.5em;
+  font-size: 1.5em;
+}
+
+h2 {
+  padding-inline: 15px;
 }
 
 h2 {
@@ -65,12 +71,10 @@ h2 {
 }
 
 .search {
-  width: 90%;
+  width: 100%;
   display: grid;
-  grid-template-columns: 4fr 0.3fr 1fr;
-  column-gap: 1em;
-  row-gap: 8px;
-  padding-inline: 15px;
+  grid-template-columns: 1fr;
+  gap: 8px;
 }
 
 input {
@@ -87,8 +91,8 @@ input {
 }
 
 #fav-menu {
-  position: relative;
-  left: 80%;
+  display: block;
+  text-align: center;
   margin-block: 1em;
 }
 
@@ -104,23 +108,23 @@ input {
 
 #filter-container {
   width: 100%;
-  /* height: 1.2em; */
   padding: 5px;
-  grid-column: span 3;
 }
 
 #filters {
   display: flex;
   width: 100%;
-  justify-content: flex-start;
-  gap: 15px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
   margin: 0;
   padding: 0;
 }
 
 select {
   font-size: 1em;
+  width: 100%;
 }
 
 option:checked {
@@ -138,7 +142,7 @@ button {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 600;
   cursor: pointer;
-  align-self: flex-start;
+  width: 100%;
 }
 
 #search-container {
@@ -148,15 +152,15 @@ button {
 
 section {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 5px;
-  margin: 3em 0 1em 0;
+  margin: 2em 0 1em 0;
 }
 
 section>div {
-  width: 10%;
-  min-width: 150px;
+  width: 100%;
+  max-width: 150px;
   padding: 10px;
   margin: 5px;
   position: relative;
@@ -168,7 +172,8 @@ section>div:hover {
 }
 
 img {
-  width: 150px;
+  width: 100%;
+  max-width: 150px;
   cursor: pointer;
 }
 
@@ -191,7 +196,6 @@ a {
 }
 
 a:hover {
-  /* text-decoration: underline; */
   color: rgb(13, 70, 134);
 }
 
@@ -199,5 +203,82 @@ h4 {
   font-size: 0.9em;
   font-weight: 500;
   margin-top: 0;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  margin-top: 2em;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  body {
+    margin-inline: 2em;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-block: 1.5em 1em;
+  }
+
+  .search {
+    width: 90%;
+    grid-template-columns: 4fr 0.3fr 1fr;
+    column-gap: 1em;
+  }
+
+  #fav-menu {
+    text-align: right;
+    margin-right: 2em;
+  }
+
+  #filter-container {
+    grid-column: span 3;
+  }
+
+  #filters {
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+  }
+
+  select {
+    width: auto;
+  }
+
+  button {
+    width: auto;
+    align-self: flex-start;
+  }
+
+  section {
+    justify-content: flex-start;
+    margin: 3em 0 1em 0;
+  }
+
+  section>div {
+    width: calc(50% - 30px);
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  body {
+    margin-inline: 3em;
+    margin-top: 3em;
+  }
+
+  section>div {
+    width: calc(33.333% - 30px);
+    min-width: 150px;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1440px) {
+  section>div {
+    width: 10%;
+  }
 }
 </style>

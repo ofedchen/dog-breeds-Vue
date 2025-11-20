@@ -23,18 +23,26 @@ const isHomeView = (routePath) => {
 
 <style scoped>
 #sizes {
-  width: 80%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 2px;
   grid-column: span 3;
   align-items: center;
   margin-inline: auto;
-  padding-block: 1.5em;
+  margin-block: 1.5em;
+  padding-left: 0;
 }
 
 li {
   list-style: none;
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  #sizes {
+    width: 80%;
+  }
 }
 </style>

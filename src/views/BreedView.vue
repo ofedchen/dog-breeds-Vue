@@ -72,8 +72,9 @@ h1 {
     margin-block: 3em;
 }
 
-img {
+main img {
     width: 90%;
+    max-width: none;
     grid-row: span 6;
 }
 
