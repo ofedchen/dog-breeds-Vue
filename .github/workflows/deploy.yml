@@ -29,10 +29,10 @@ jobs:
         run: npm ci
 
       - name: Install rsync
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y rsync
-          which rsync
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: rsync
+          version: 1.0
 
       - name: Build
         run: npm run build
